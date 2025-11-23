@@ -1,18 +1,8 @@
 #include <iostream>
 #include <iomanip>
-#include <cmath>
 #include <windows.h>
-#include "functions.h"
 #include <algorithm>
-#include <time.h>
-#include <random>
 
-// 1.Дано рядки S1 і S2. Перевірити, чи міститься рядок S1 у рядку S2. Якщо втримується, то вивести True, якщо не втримується, то вивести False.
-
-bool str1instr2(const char* a, const char* b)
-{
-	return strstr(b, a) != nullptr;
-}
 struct student
 {
 	char surname[30];
@@ -20,67 +10,52 @@ struct student
 	int grades[3];
 };
 
-student filterByDate(student students[], int lowerBound, int upperBound)
+bool filterByDate(student student, int lowerBound, int upperBound)
 {
-	student groupFiltered;
-	for (size_t i = 0; i < (sizeof(students) / sizeof(students)); i++)
-	{
-		if (students[i].yearOfBirth < upperBound && students[i].yearOfBirth >> lowerBound)
-			groupFiltered = students[i];
-	}
-	return groupFiltered;
+	return student.yearOfBirth < upperBound && student.yearOfBirth > lowerBound;
 }
-int minArr(int arr[])
+int minArr(int arr[], size_t size)
 {
-	int min = arr[0];
-	for (size_t i = 1; i < (sizeof(arr) / 4); i++)
+	int minEm = arr[0];
+	for (size_t i = 1; i < size; i++)
 	{
-		if (!min(min, arr[i]))
-			min = arr[i];
+		minEm = min(minEm, arr[i]);
 	}
-	return min;
+	return minEm;
 }
 
-student filterByGrades(student students[])
+bool filterByGrades(student student[], size_t size)
 {
-	student groupFiltered;
-	for (size_t i = 0; i < (sizeof(students) / sizeof(students)); i++)
-	{
-
-		if (minArr(students[i].grades) < 60)
-			groupFiltered = students[i];
-	}
-	return groupFiltered;
+	return (minArr(student->grades, size) < 60);
 }
 
 using namespace std;
 int main()
 {
-	char str1[50];
-	cin.getline(str1, 50);
-	cout << boolalpha << str1instr2(str1, "str2str2str1str0") << endl;
-	cout << str1instr2("str1", "str2str2strstr0");
+	/*Створити масив структур, який містить відомості про студентів групи. 
+	Кожна структура містить поля - прізвище студента, рік народження і оцінки за трьома іспитів. 
+	Написати програму, що видає наступну інформацію: 
+	список студентів, 
+	зі вказаним діапазоном року народження 
+	із зазначенням отриманих оцінок; 
+	кількість студентів, 
+	які отримали незадовільні оцінки хоча б по одній дисципліні.
+*/
+	student corn = { "jonathan", 1999, {80, 100, 70} };
+	student ram = { "stone", 1995, {100, 90, 100} };
+	student meg = { "adeth", 1983, {59, 70, 100} };
+	student group108[3] = {corn, ram, meg};
+	size_t count = 0;
+	for (size_t i = 0; i < 3; i++)
+	{
+		if (filterByDate(group108[i], 1997, 2025))
+			cout << "By age (>`97): " << group108[i].surname << ' ';
+	}
+	cout << '\n';
+	for (size_t i = 0; i < 3; i++)
+	{
+		if (filterByGrades(group108[i]))
+			 count++;
+	}
+	cout << "Amount of unsucceseful students: " << count;
 }
-	
-//
-//	/*Створити масив структур, який містить відомості про студентів групи. 
-//	Кожна структура містить поля - прізвище студента, рік народження і оцінки за трьома іспитів. 
-//	Написати програму, що видає наступну інформацію: 
-//	список студентів, 
-//	зі вказаним діапазоном року народження 
-//	із зазначенням отриманих оцінок; 
-//	кількість студентів, 
-//	які отримали незадовільні оцінки хоча б по одній дисципліні.
-//*/
-//	student corn = { "jonathan", 1999, {80, 100, 70} };
-//	student ram = { "stone", 1995, {100, 90, 100} };
-//	student meg = { "adeth", 1983, {59, 70, 100} };
-//
-//	student group108[3] = {corn, ram, meg};
-//	student Filteredbyage[3];
-//	Filteredbyage = filterByDate(group108, 1982, 1998);
-//	student FIlteredbyfailing[] = filterByGrades(group108);
-//	for (size_t i = 0; i < 2; i++)
-//	{
-//		cout << Filteredbyage
-//	}

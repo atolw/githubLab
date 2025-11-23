@@ -1,2 +1,7 @@
 ﻿  UniHomework.cpp
-  UniHomework.vcxproj -> C:\Users\user\source\repos\UniHomework\x64\Debug\UniHomework.exe
+C:\Users\user\source\repos\UniHomework\UniHomework\UniHomework.cpp(57,7): error C2660: 'filterByGrades': function does not take 1 arguments
+      C:\Users\user\source\repos\UniHomework\UniHomework\UniHomework.cpp(27,6):
+      see declaration of 'filterByGrades'
+      C:\Users\user\source\repos\UniHomework\UniHomework\UniHomework.cpp(57,7):
+      while trying to match the argument list '(student)'
+  
